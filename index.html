@@ -98,12 +98,6 @@ header {
 .logo-area {
   display: flex; align-items: center; gap: 12px; cursor: pointer; flex-shrink: 0;
 }
-.logo-icon {
-  width: 44px; height: 44px;
-  background: linear-gradient(135deg, var(--blue), var(--orange));
-  border-radius: 10px; display: flex; align-items: center; justify-content: center;
-  font-family: 'Barlow Condensed', sans-serif; font-weight: 800; color: white; font-size: 1.3rem;
-}
 .logo-text { line-height: 1; }
 .logo-text .brand { font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 800; color: white; letter-spacing: .5px; }
 .logo-text .brand span { color: var(--orange); }
@@ -212,7 +206,6 @@ nav { display: flex; align-items: center; gap: 4px; }
   min-width: 140px;
 }
 .hero-card:hover { transform: translateY(-4px); }
-.hero-card .icon { font-size: 2.2rem; margin-bottom: 10px; }
 .hero-card .label { color: white; font-weight: 600; font-size: .95rem; }
 .hero-card .sub-label { color: rgba(255,255,255,.5); font-size: .8rem; margin-top: 4px; }
 
@@ -281,7 +274,6 @@ nav { display: flex; align-items: center; gap: 4px; }
 .cat-chip:hover, .cat-chip.active {
   border-color: var(--blue); background: var(--blue); color: white;
 }
-.cat-chip .emoji { font-size: 1.1rem; }
 
 /* ─── PRODUCT GRID ─── */
 .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
@@ -303,8 +295,16 @@ nav { display: flex; align-items: center; gap: 4px; }
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 8px; color: var(--gray-500);
 }
-.card-placeholder .icon { font-size: 2.5rem; }
-.card-placeholder .text { font-size: .8rem; font-weight: 500; }
+.card-placeholder .text { font-size: .85rem; font-weight: 600; text-align: center; padding: 0 12px; }
+.product-img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.catalog-cover-img {
+  object-fit: contain !important;
+  background: white;
+  padding: 8px;
+}
+.image-slot { color: var(--gray-500); font-size: .95rem; font-weight: 600; text-align: center; }
 
 .card-fav {
   position: absolute; top: 10px; right: 10px;
@@ -363,15 +363,19 @@ nav { display: flex; align-items: center; gap: 4px; }
   display: flex; align-items: center; justify-content: center;
 }
 .product-main-img .placeholder-big {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 12px; color: var(--gray-500); font-size: 5rem;
+  width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; color: var(--gray-500);
+}
+.detail-img {
+  width: 100%; height: 100%; object-fit: contain; display: block; background: white;
 }
 .product-thumbs { display: flex; gap: 8px; }
 .thumb {
   width: 70px; height: 70px; border-radius: 8px; border: 2px solid var(--gray-200);
   background: white; display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem; cursor: pointer; transition: border-color var(--transition);
+  cursor: pointer; transition: border-color var(--transition); overflow: hidden;
 }
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .thumb.active, .thumb:hover { border-color: var(--blue); }
 
 .product-info {}
@@ -385,6 +389,16 @@ nav { display: flex; align-items: center; gap: 4px; }
 .detail-price-now { font-family: 'Barlow Condensed', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--blue); line-height: 1; }
 .detail-savings { color: #2e7d32; font-size: .85rem; font-weight: 600; margin-top: 4px; }
 .installments { color: var(--gray-700); font-size: .85rem; margin-top: 6px; }
+.product-description {
+  color: var(--gray-700); font-size: .98rem; line-height: 1.65;
+  margin: -6px 0 24px;
+}
+.catalog-link {
+  display: none; margin: -8px 0 24px; padding: 12px 16px;
+  background: var(--blue-light); color: var(--blue); border-radius: var(--radius-sm);
+  text-decoration: none; font-weight: 700; text-align: center; transition: all var(--transition);
+}
+.catalog-link:hover { background: var(--blue); color: white; }
 
 .option-group { margin-bottom: 20px; }
 .option-label { font-weight: 600; font-size: .9rem; color: var(--gray-900); margin-bottom: 10px; }
@@ -423,7 +437,6 @@ nav { display: flex; align-items: center; gap: 4px; }
 
 .product-features { display: flex; gap: 16px; padding: 16px 0; border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200); margin-bottom: 20px; }
 .feat-item { display: flex; align-items: center; gap: 8px; font-size: .82rem; color: var(--gray-700); flex: 1; }
-.feat-icon { font-size: 1.2rem; }
 
 /* ─── CART ─── */
 #screen-cart { background: var(--gray-100); }
@@ -439,8 +452,10 @@ nav { display: flex; align-items: center; gap: 4px; }
 .cart-item:last-child { border-bottom: none; }
 .cart-item-img {
   width: 80px; height: 80px; border-radius: 8px; background: var(--gray-100);
-  display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: .75rem; color: var(--gray-500);
+  flex-shrink: 0; overflow: hidden;
 }
+.cart-item-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .cart-item-info { flex: 1; }
 .cart-item-name { font-weight: 600; font-size: .95rem; margin-bottom: 4px; color: var(--gray-900); }
 .cart-item-meta { font-size: .8rem; color: var(--gray-500); margin-bottom: 10px; }
@@ -458,7 +473,6 @@ nav { display: flex; align-items: center; gap: 4px; }
 .coupon-btn { padding: 10px 14px; background: var(--blue); color: white; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: .85rem; cursor: pointer; }
 
 .empty-cart { text-align: center; padding: 60px 20px; }
-.empty-cart .icon { font-size: 4rem; margin-bottom: 16px; }
 .empty-cart h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--gray-900); }
 .empty-cart p { color: var(--gray-500); margin-bottom: 24px; }
 
@@ -493,17 +507,13 @@ nav { display: flex; align-items: center; gap: 4px; }
   transition: all var(--transition);
 }
 .pay-tab.active { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
-.card-icons { display: flex; gap: 8px; margin-bottom: 16px; }
-.card-icon {
-  width: 48px; height: 30px; border-radius: 4px; background: var(--gray-200);
-  display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 700; color: var(--gray-700);
-}
 
 .order-summary-mini { background: white; border-radius: var(--radius); border: 1px solid var(--gray-200); padding: 20px; }
 .order-summary-mini h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
 .order-item-mini { display: flex; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--gray-100); }
 .order-item-mini:last-child { border-bottom: none; }
-.order-img-mini { width: 50px; height: 50px; border-radius: 6px; background: var(--gray-100); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+.order-img-mini { width: 50px; height: 50px; border-radius: 6px; background: var(--gray-100); display: flex; align-items: center; justify-content: center; font-size: .7rem; color: var(--gray-500); flex-shrink: 0; overflow: hidden; }
+.order-img-mini img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .order-info-mini { flex: 1; }
 .order-name-mini { font-size: .85rem; font-weight: 600; color: var(--gray-900); }
 .order-qty-mini { font-size: .78rem; color: var(--gray-500); }
@@ -513,7 +523,6 @@ nav { display: flex; align-items: center; gap: 4px; }
 #screen-login { background: var(--gray-100); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
 .login-box { background: white; border-radius: var(--radius); border: 1px solid var(--gray-200); padding: 40px; max-width: 420px; width: 100%; box-shadow: var(--shadow-md); }
 .login-logo { text-align: center; margin-bottom: 28px; }
-.login-logo .icon { font-size: 3rem; }
 .login-logo h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--gray-900); margin-top: 8px; }
 .login-logo p { color: var(--gray-500); font-size: .85rem; }
 .login-tabs { display: flex; background: var(--gray-100); border-radius: 8px; padding: 4px; margin-bottom: 24px; }
@@ -524,6 +533,38 @@ nav { display: flex; align-items: center; gap: 4px; }
 .social-divider::before, .social-divider::after { content: ''; position: absolute; top: 50%; width: 38%; height: 1px; background: var(--gray-200); }
 .social-divider::before { left: 0; }
 .social-divider::after { right: 0; }
+.profile-card { background: white; border-radius: var(--radius); border: 1px solid var(--gray-200); padding: 32px; max-width: 520px; width: 100%; box-shadow: var(--shadow-md); }
+.profile-card h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; color: var(--gray-900); margin-bottom: 8px; }
+.profile-card p { color: var(--gray-700); line-height: 1.6; }
+.profile-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--gray-200); font-size: .95rem; }
+.profile-row strong { color: var(--gray-900); }
+.profile-row span { color: var(--gray-700); text-align: right; }
+#screen-profile.active { background: var(--gray-100); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+
+/* â”€â”€â”€ INFO MODAL â”€â”€â”€ */
+.info-modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.62); z-index: 10000;
+  display: none; align-items: center; justify-content: center; padding: 20px;
+}
+.info-modal-overlay.active { display: flex; }
+.info-modal {
+  background: white; border-radius: var(--radius); width: min(760px, 100%);
+  max-height: 86vh; overflow: hidden; box-shadow: var(--shadow-lg);
+}
+.info-modal-header {
+  background: var(--gray-900); color: white; padding: 22px 28px;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+.info-modal-header h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 800; }
+.info-modal-close {
+  width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
+  background: rgba(255,255,255,.12); color: white; font-size: 1.1rem;
+}
+.info-modal-body { padding: 26px 28px; overflow-y: auto; max-height: calc(86vh - 78px); }
+.info-modal-body h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.15rem; color: var(--blue); margin: 18px 0 8px; }
+.info-modal-body h4:first-child { margin-top: 0; }
+.info-modal-body p, .info-modal-body li { color: var(--gray-700); line-height: 1.65; font-size: .95rem; }
+.info-modal-body ul { padding-left: 20px; margin: 8px 0 12px; }
 
 /* ─── FAVORITES ─── */
 #screen-favorites { background: var(--gray-100); }
@@ -535,6 +576,7 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 .footer-brand .logo-text .brand { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 800; color: white; }
 .footer-brand .logo-text .brand span { color: var(--orange); }
+.footer-logo { display: block; max-width: 160px; height: auto; margin-bottom: 16px; }
 .footer-brand p { color: rgba(255,255,255,.6); font-size: .9rem; line-height: 1.7; margin: 16px 0; max-width: 280px; }
 .social-links { display: flex; gap: 10px; }
 .social-btn {
@@ -562,6 +604,7 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
   text-decoration: none; font-size: 1.6rem; color: white;
   animation: pulse 2s infinite; transition: transform var(--transition);
 }
+.whatsapp-float svg { width: 30px; height: 30px; fill: currentColor; }
 .whatsapp-float:hover { transform: scale(1.1); animation: none; }
 .whatsapp-tooltip {
   position: absolute; right: 64px; background: var(--gray-900); color: white;
@@ -585,7 +628,6 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
   transform: translateX(120%); transition: transform .3s;
 }
 .toast.show { transform: translateX(0); }
-.toast .toast-icon { font-size: 1.2rem; }
 
 /* ─── FILTER BAR ─── */
 .filter-bar { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
@@ -614,8 +656,12 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
   .banners { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
-  .header-main { padding: 0 14px; gap: 12px; }
-  .nav-btn span { display: none; }
+  .header-main { height: auto; padding: 12px 14px; gap: 12px; flex-wrap: wrap; }
+  .logo-area { width: 100%; justify-content: center; }
+  .search-bar { order: 3; flex-basis: 100%; }
+  nav { order: 2; width: 100%; overflow-x: auto; justify-content: flex-start; padding-bottom: 2px; }
+  .nav-btn { padding: 8px 10px; font-size: .82rem; }
+  .cart-badge { top: -2px; right: -2px; }
   .footer-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .hero { padding: 50px 20px; }
@@ -629,14 +675,14 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-header">
-      <button class="popup-close" onclick="closePopup()">✕</button>
-      <h2>🎉 Oferta Especial!</h2>
+      <button class="popup-close" onclick="closePopup()" aria-label="Fechar">Fechar</button>
+      <h2>Oferta Especial!</h2>
       <p>Só por hoje — aproveite agora</p>
     </div>
     <div class="popup-body">
       <div class="popup-badge">20% OFF na 1ª compra</div>
       <p>Use o cupom <strong>MAKER20</strong> no checkout e ganhe 20% de desconto em qualquer produto personalizado.</p>
-      <button class="popup-cta" onclick="closePopup(); navigate('catalog')">Ver Produtos com Desconto →</button>
+      <button class="popup-cta" onclick="closePopup(); navigate('catalog')">Ver Produtos com Desconto</button>
       <span class="popup-skip" onclick="closePopup()">Não, obrigado</span>
     </div>
   </div>
@@ -644,18 +690,16 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
 
 <!-- TOAST -->
 <div class="toast" id="toast">
-  <span class="toast-icon">✅</span>
   <span id="toast-msg">Produto adicionado ao carrinho!</span>
 </div>
 
 <!-- HEADER -->
 <header>
   <div class="header-top">
-    🚚 Frete grátis acima de R$ 199 &nbsp;|&nbsp; <span>USE: MAKER20</span> — 20% OFF na 1ª compra
+    Frete grátis acima de R$ 199 &nbsp;|&nbsp; <span>USE: MAKER20</span> — 20% OFF na 1ª compra
   </div>
   <div class="header-main">
     <div class="logo-area" onclick="navigate('home')">
-      <div class="logo-icon">M</div>
       <div class="logo-text">
         <div class="brand">MID MAKER<span>3D</span></div>
         <div class="sub">Customizações</div>
@@ -663,12 +707,12 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
     </div>
     <div class="search-bar">
       <input type="text" placeholder="Buscar produtos..." id="search-input" oninput="filterSearch()">
-      <button onclick="filterSearch()">🔍</button>
+      <button onclick="filterSearch()">Buscar</button>
     </div>
     <nav>
-      <button class="nav-btn" onclick="navigate('home')" id="nav-home">🏠 <span>Início</span></button>
+      <button class="nav-btn" onclick="navigate('home')" id="nav-home"><span>Início</span></button>
       <div class="dropdown-wrap">
-        <button class="nav-btn" id="nav-cat">📂 <span>Categorias ▾</span></button>
+        <button class="nav-btn" id="nav-cat"><span>Categorias</span></button>
         <div class="dropdown" id="cat-dropdown">
           <a onclick="filterCat('todos')"><span class="dot"></span>Todos os Produtos</a>
           <a onclick="filterCat('camisas')"><span class="dot"></span>Camisas Customizáveis</a>
@@ -678,12 +722,12 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
           <a onclick="filterCat('impressao3d')"><span class="dot"></span>Impressão 3D</a>
         </div>
       </div>
-      <button class="nav-btn" onclick="navigate('favorites')" id="nav-fav">♡ <span>Favoritos</span></button>
+      <button class="nav-btn" onclick="navigate('favorites')" id="nav-fav"> <span>Favoritos</span></button>
       <button class="nav-btn" onclick="navigate('cart')" id="nav-cart" style="position:relative">
-        🛒 <span>Carrinho</span>
+        <span>Carrinho</span>
         <span class="cart-badge" id="cart-badge">0</span>
       </button>
-      <button class="nav-btn" onclick="navigate('login')" id="nav-login">👤 <span>Entrar</span></button>
+      <button class="nav-btn" onclick="navigate('login')" id="nav-login"><span>Entrar</span></button>
     </nav>
   </div>
 </header>
@@ -695,12 +739,12 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
   <section class="hero">
     <div class="hero-inner">
       <div>
-        <div class="hero-tag">✦ Impressão 3D & Customização</div>
+        <div class="hero-tag">Impressão 3D & Customização</div>
         <h1>Crie algo<br><span>único</span> com<br>sua marca</h1>
         <p>Camisas, canecas e produtos personalizados com qualidade profissional. Do design à entrega, você escolhe cada detalhe.</p>
         <div class="hero-btns">
-          <button class="btn-primary" onclick="navigate('catalog')">Ver Catálogo →</button>
-          <a class="btn-secondary" href="https://wa.me/SEUNUMERO" target="_blank">💬 Falar no WhatsApp</a>
+          <button class="btn-primary" onclick="navigate('catalog')">Ver Catálogo</button>
+          <a class="btn-secondary js-whatsapp-link" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a>
         </div>
         <div class="hero-stats">
           <div class="stat"><div class="num">500+</div><div class="lbl">Clientes</div></div>
@@ -709,10 +753,10 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
         </div>
       </div>
       <div class="hero-visual">
-        <div class="hero-card"><div class="icon">👕</div><div class="label">Camisas</div><div class="sub-label">Custom</div></div>
-        <div class="hero-card"><div class="icon">☕</div><div class="label">Canecas</div><div class="sub-label">Personalizadas</div></div>
-        <div class="hero-card"><div class="icon">🖨️</div><div class="label">Impressão</div><div class="sub-label">3D</div></div>
-        <div class="hero-card"><div class="icon">🏷️</div><div class="label">Brindes</div><div class="sub-label">Empresas</div></div>
+        <div class="hero-card"><div class="label">Camisas</div><div class="sub-label">Custom</div></div>
+        <div class="hero-card"><div class="label">Canecas</div><div class="sub-label">Personalizadas</div></div>
+        <div class="hero-card"><div class="label">Impressão</div><div class="sub-label">3D</div></div>
+        <div class="hero-card"><div class="label">Brindes</div><div class="sub-label">Empresas</div></div>
       </div>
     </div>
   </section>
@@ -721,12 +765,12 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
   <section class="section" style="padding-bottom:0">
     <div class="section-inner">
       <div class="categories-row">
-        <div class="cat-chip active" onclick="filterCat('todos')"><span class="emoji">✨</span>Todos</div>
-        <div class="cat-chip" onclick="filterCat('camisas')"><span class="emoji">👕</span>Camisas</div>
-        <div class="cat-chip" onclick="filterCat('canecas')"><span class="emoji">☕</span>Canecas</div>
-        <div class="cat-chip" onclick="filterCat('impressao3d')"><span class="emoji">🖨️</span>Impressão 3D</div>
-        <div class="cat-chip" onclick="filterCat('empresas')"><span class="emoji">🏢</span>Para Empresas</div>
-        <div class="cat-chip" onclick="filterCat('brindes')"><span class="emoji">🎁</span>Brindes</div>
+        <div class="cat-chip active" data-cat="todos" onclick="filterCat('todos')">Todos</div>
+        <div class="cat-chip" data-cat="camisas" onclick="filterCat('camisas')">Camisas</div>
+        <div class="cat-chip" data-cat="canecas" onclick="filterCat('canecas')">Canecas</div>
+        <div class="cat-chip" data-cat="impressao3d" onclick="filterCat('impressao3d')">Impressão 3D</div>
+        <div class="cat-chip" data-cat="empresas" onclick="filterCat('empresas')">Para Empresas</div>
+        <div class="cat-chip" data-cat="brindes" onclick="filterCat('brindes')">Brindes</div>
       </div>
     </div>
   </section>
@@ -736,14 +780,14 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
     <div class="section-inner">
       <div class="banners">
         <div class="banner banner-1" onclick="filterCat('camisas')">
-          <div class="banner-tag">🔥 Mais Vendido</div>
+          <div class="banner-tag">Mais Vendido</div>
           <h3>Camisas com Seu<br>Design Exclusivo</h3>
-          <button class="banner-btn">Personalizar agora →</button>
+          <button class="banner-btn">Personalizar agora</button>
         </div>
         <div class="banner banner-2" onclick="filterCat('canecas')">
-          <div class="banner-tag">⭐ Destaque</div>
+          <div class="banner-tag">Destaque</div>
           <h3>Canecas para<br>Brindes Corporativos</h3>
-          <button class="banner-btn">Ver modelos →</button>
+          <button class="banner-btn">Ver modelos</button>
         </div>
       </div>
     </div>
@@ -757,7 +801,7 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
           <h2 class="section-title">Em <span>Promoção</span></h2>
           <p class="section-sub">Aproveite enquanto dura</p>
         </div>
-        <button class="see-all" onclick="navigate('catalog')">Ver tudo →</button>
+        <button class="see-all" onclick="navigate('catalog')">Ver tudo</button>
       </div>
       <div class="product-grid" id="promo-grid"></div>
     </div>
@@ -771,7 +815,7 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
           <h2 class="section-title">Mais <span>Vendidos</span></h2>
           <p class="section-sub">Os favoritos dos nossos clientes</p>
         </div>
-        <button class="see-all" onclick="navigate('catalog')">Ver tudo →</button>
+        <button class="see-all" onclick="navigate('catalog')">Ver tudo</button>
       </div>
       <div class="product-grid" id="featured-grid"></div>
     </div>
@@ -782,22 +826,22 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
     <div class="section-inner">
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; text-align:center;">
         <div style="padding:28px 20px; border-radius:var(--radius); border:1px solid var(--gray-200);">
-          <div style="font-size:2.5rem; margin-bottom:12px;">🎨</div>
+          <div style="font-size:2.5rem; margin-bottom:12px;"></div>
           <h4 style="font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:6px;">Design Exclusivo</h4>
           <p style="font-size:.85rem; color:var(--gray-700); line-height:1.6;">Cada produto é criado com a sua identidade</p>
         </div>
         <div style="padding:28px 20px; border-radius:var(--radius); border:1px solid var(--gray-200);">
-          <div style="font-size:2.5rem; margin-bottom:12px;">⚡</div>
+          <div style="font-size:2.5rem; margin-bottom:12px;"></div>
           <h4 style="font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:6px;">Entrega Rápida</h4>
           <p style="font-size:.85rem; color:var(--gray-700); line-height:1.6;">Produção em até 72 horas úteis</p>
         </div>
         <div style="padding:28px 20px; border-radius:var(--radius); border:1px solid var(--gray-200);">
-          <div style="font-size:2.5rem; margin-bottom:12px;">💎</div>
+          <div style="font-size:2.5rem; margin-bottom:12px;"></div>
           <h4 style="font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:6px;">Alta Qualidade</h4>
           <p style="font-size:.85rem; color:var(--gray-700); line-height:1.6;">Materiais premium e acabamento impecável</p>
         </div>
         <div style="padding:28px 20px; border-radius:var(--radius); border:1px solid var(--gray-200);">
-          <div style="font-size:2.5rem; margin-bottom:12px;">🤝</div>
+          <div style="font-size:2.5rem; margin-bottom:12px;"></div>
           <h4 style="font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:6px;">Atendimento Humano</h4>
           <p style="font-size:.85rem; color:var(--gray-700); line-height:1.6;">Suporte direto pelo WhatsApp</p>
         </div>
@@ -842,12 +886,12 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
         <span class="results-count" id="results-count">0 produtos</span>
       </div>
       <div class="categories-row" style="margin-bottom:24px;">
-        <div class="cat-chip active" onclick="filterCat2('todos')">✨ Todos</div>
-        <div class="cat-chip" onclick="filterCat2('camisas')">👕 Camisas</div>
-        <div class="cat-chip" onclick="filterCat2('canecas')">☕ Canecas</div>
-        <div class="cat-chip" onclick="filterCat2('impressao3d')">🖨️ Impressão 3D</div>
-        <div class="cat-chip" onclick="filterCat2('empresas')">🏢 Empresas</div>
-        <div class="cat-chip" onclick="filterCat2('brindes')">🎁 Brindes</div>
+        <div class="cat-chip active" data-cat="todos" onclick="filterCat2('todos', this)">Todos</div>
+        <div class="cat-chip" data-cat="camisas" onclick="filterCat2('camisas', this)">Camisas</div>
+        <div class="cat-chip" data-cat="canecas" onclick="filterCat2('canecas', this)">Canecas</div>
+        <div class="cat-chip" data-cat="impressao3d" onclick="filterCat2('impressao3d', this)">Impressão 3D</div>
+        <div class="cat-chip" data-cat="empresas" onclick="filterCat2('empresas', this)">Empresas</div>
+        <div class="cat-chip" data-cat="brindes" onclick="filterCat2('brindes', this)">Brindes</div>
       </div>
       <div class="product-grid" id="catalog-grid"></div>
     </div>
@@ -866,20 +910,20 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
       <div class="product-imgs">
         <div class="product-main-img">
           <div class="placeholder-big" id="detail-img-icon">
-            <span style="font-size:6rem">👕</span>
+            <span style="font-size:6rem"></span>
           </div>
         </div>
         <div class="product-thumbs">
-          <div class="thumb active">👕</div>
-          <div class="thumb">📸</div>
-          <div class="thumb">🎨</div>
+          <div class="thumb active"></div>
+          <div class="thumb"></div>
+          <div class="thumb"></div>
         </div>
       </div>
       <div class="product-info">
         <div class="cat" id="detail-cat">Categoria</div>
         <h1 id="detail-name">Nome do Produto</h1>
         <div class="product-rating">
-          <div class="stars">★★★★★</div>
+          <div class="stars">5,0</div>
           <span class="rating-count">(48 avaliações)</span>
         </div>
         <div class="product-price-block">
@@ -888,6 +932,8 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
           <div class="detail-savings" id="detail-saving"></div>
           <div class="installments">em até <strong>6x</strong> sem juros</div>
         </div>
+        <p class="product-description" id="detail-description"></p>
+        <a class="catalog-link" id="detail-catalog-link" href="#" target="_blank" rel="noopener">Acessar catálogo</a>
         <div class="option-group" id="color-group">
           <div class="option-label">Cor:</div>
           <div class="color-options">
@@ -922,14 +968,14 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
           </div>
         </div>
         <div class="product-features">
-          <div class="feat-item"><span class="feat-icon">🚚</span>Entrega em todo Brasil</div>
-          <div class="feat-item"><span class="feat-icon">🔄</span>Troca fácil</div>
-          <div class="feat-item"><span class="feat-icon">🔒</span>Compra segura</div>
+          <div class="feat-item">Entrega em todo Brasil</div>
+          <div class="feat-item">Troca fácil</div>
+          <div class="feat-item">Compra segura</div>
         </div>
         <div class="detail-btns">
-          <button class="btn-full orange" onclick="buyNow()">⚡ Comprar Agora</button>
-          <button class="btn-full blue" onclick="addToCartDetail()">🛒 Adicionar ao Carrinho</button>
-          <button class="btn-full outline" onclick="toggleFavDetail()">♡ Adicionar aos Favoritos</button>
+          <button class="btn-full orange" onclick="buyNow()">Comprar Agora</button>
+          <button class="btn-full blue" onclick="addToCartDetail()">Adicionar ao Carrinho</button>
+          <button class="btn-full outline" onclick="toggleFavDetail()">Adicionar aos Favoritos</button>
         </div>
       </div>
     </div>
@@ -940,15 +986,14 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
 <div class="screen" id="screen-cart">
   <div class="page-header">
     <div class="page-header-inner">
-      <h1>🛒 Meu Carrinho</h1>
+      <h1>Meu Carrinho</h1>
     </div>
   </div>
   <div class="cart-inner">
     <div id="cart-empty" class="empty-cart" style="display:none">
-      <div class="icon">🛒</div>
       <h3>Seu carrinho está vazio</h3>
       <p>Adicione produtos e volte aqui para finalizar a compra.</p>
-      <button class="btn-primary" onclick="navigate('catalog')">Ver Produtos →</button>
+      <button class="btn-primary" onclick="navigate('catalog')">Ver Produtos</button>
     </div>
     <div id="cart-content" class="cart-grid">
       <div>
@@ -964,14 +1009,14 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
         <div class="cart-summary">
           <h3>Resumo do Pedido</h3>
           <div class="summary-row"><span>Subtotal</span><span id="sum-subtotal">R$ 0,00</span></div>
-          <div class="summary-row saving"><span>💚 Desconto</span><span id="sum-discount">- R$ 0,00</span></div>
+          <div class="summary-row saving"><span>Desconto</span><span id="sum-discount">- R$ 0,00</span></div>
           <div class="summary-row"><span>Frete</span><span id="sum-shipping">Grátis</span></div>
           <div class="summary-row total"><span>Total</span><span id="sum-total">R$ 0,00</span></div>
           <div class="coupon-row">
             <input class="coupon-input" type="text" placeholder="Cupom de desconto" id="coupon-input">
             <button class="coupon-btn" onclick="applyCoupon()">Aplicar</button>
           </div>
-          <button class="btn-full orange" onclick="navigate('checkout')" style="margin-top:8px">Finalizar Compra →</button>
+          <button class="btn-full orange" onclick="navigate('checkout')" style="margin-top:8px">Finalizar Compra</button>
           <button class="btn-full outline" onclick="navigate('catalog')" style="margin-top:8px">Continuar Comprando</button>
         </div>
       </div>
@@ -995,7 +1040,7 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
     <div class="checkout-grid">
       <div>
         <div class="checkout-form" id="checkout-step-1">
-          <h3>📋 Seus Dados</h3>
+          <h3>Seus Dados</h3>
           <div class="form-row">
             <div class="form-group"><label>Nome Completo *</label><input class="form-input" type="text" placeholder="João Silva"></div>
             <div class="form-group"><label>CPF *</label><input class="form-input" type="text" placeholder="000.000.000-00"></div>
@@ -1004,7 +1049,7 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
             <div class="form-group"><label>E-mail *</label><input class="form-input" type="email" placeholder="joao@email.com"></div>
             <div class="form-group"><label>Telefone / WhatsApp *</label><input class="form-input" type="tel" placeholder="(11) 99999-9999"></div>
           </div>
-          <h3 style="margin-top:24px">📍 Endereço de Entrega</h3>
+          <h3 style="margin-top:24px">Endereço de Entrega</h3>
           <div class="form-row">
             <div class="form-group"><label>CEP *</label><input class="form-input" type="text" placeholder="00000-000"></div>
             <div class="form-group"><label>Estado</label><input class="form-input" type="text" placeholder="BA"></div>
@@ -1016,17 +1061,11 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
           <div class="form-row single">
             <div class="form-group"><label>Endereço *</label><input class="form-input" type="text" placeholder="Rua, número, complemento"></div>
           </div>
-          <h3 style="margin-top:24px">💳 Pagamento</h3>
+          <h3 style="margin-top:24px">Pagamento</h3>
           <div class="payment-tabs">
-            <div class="pay-tab active">💳 Cartão</div>
-            <div class="pay-tab">📋 PIX</div>
-            <div class="pay-tab">📄 Boleto</div>
-          </div>
-          <div class="card-icons">
-            <div class="card-icon">VISA</div>
-            <div class="card-icon">MC</div>
-            <div class="card-icon">ELO</div>
-            <div class="card-icon">PIX</div>
+            <div class="pay-tab active">Cartão</div>
+            <div class="pay-tab">PIX</div>
+            <div class="pay-tab">Boleto</div>
           </div>
           <div class="form-row single">
             <div class="form-group"><label>Número do Cartão</label><input class="form-input" type="text" placeholder="0000 0000 0000 0000"></div>
@@ -1046,7 +1085,7 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
               </select>
             </div>
           </div>
-          <button class="btn-full orange" style="margin-top:20px" onclick="finishOrder()">🔒 Finalizar Pedido com Segurança</button>
+          <button class="btn-full orange" style="margin-top:20px" onclick="finishOrder()">Finalizar Pedido com Segurança</button>
         </div>
       </div>
       <div>
@@ -1056,6 +1095,7 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
           <div style="border-top:1px solid var(--gray-200); margin-top:12px; padding-top:12px;">
             <div class="summary-row" style="font-size:.85rem; color:var(--gray-700); display:flex; justify-content:space-between; padding:4px 0;"><span>Subtotal</span><span id="co-subtotal">R$ 0,00</span></div>
             <div class="summary-row" style="font-size:.85rem; color:#2e7d32; display:flex; justify-content:space-between; padding:4px 0;"><span>Desconto</span><span id="co-discount">R$ 0,00</span></div>
+            <div class="summary-row" style="font-size:.85rem; color:var(--gray-700); display:flex; justify-content:space-between; padding:4px 0;"><span>Frete</span><span id="co-shipping">Grátis</span></div>
             <div class="summary-row" style="font-size:.9rem; font-weight:700; display:flex; justify-content:space-between; padding:8px 0; border-top:1px solid var(--gray-200); margin-top:4px;"><span>Total</span><span id="co-total" style="color:var(--blue)">R$ 0,00</span></div>
           </div>
         </div>
@@ -1068,15 +1108,15 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
 <div class="screen" id="screen-favorites">
   <div class="page-header">
     <div class="page-header-inner">
-      <h1>♡ Meus Favoritos</h1>
+      <h1>Meus Favoritos</h1>
     </div>
   </div>
   <div class="favorites-inner">
     <div id="fav-empty" style="display:none; text-align:center; padding:60px 20px;">
-      <div style="font-size:4rem; margin-bottom:16px;">♡</div>
+      <div style="font-size:4rem; margin-bottom:16px;"></div>
       <h3 style="font-family:'Barlow Condensed',sans-serif; font-size:1.5rem; font-weight:700; margin-bottom:8px;">Nenhum favorito ainda</h3>
       <p style="color:var(--gray-500); margin-bottom:24px;">Explore nosso catálogo e favorite os produtos que você gostou.</p>
-      <button class="btn-primary" onclick="navigate('catalog')">Ver Produtos →</button>
+      <button class="btn-primary" onclick="navigate('catalog')">Ver Produtos</button>
     </div>
     <div class="product-grid" id="fav-grid"></div>
   </div>
@@ -1086,7 +1126,6 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
 <div class="screen" id="screen-login">
   <div class="login-box">
     <div class="login-logo">
-      <div class="icon">🏭</div>
       <h2>Mid Maker<span style="color:var(--orange)">3D</span></h2>
       <p>Acesse sua conta</p>
     </div>
@@ -1097,42 +1136,50 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
     <div id="login-form">
       <div class="form-group" style="margin-bottom:14px;">
         <label style="font-size:.85rem; font-weight:600; color:var(--gray-700);">E-mail</label>
-        <input class="form-input" type="email" placeholder="seu@email.com">
+        <input class="form-input" type="email" placeholder="seu@email.com" id="login-email">
       </div>
       <div class="form-group" style="margin-bottom:20px;">
         <label style="font-size:.85rem; font-weight:600; color:var(--gray-700);">Senha</label>
         <input class="form-input" type="password" placeholder="••••••••">
       </div>
-      <button class="btn-full blue" onclick="showToast('Login realizado com sucesso! ✅'); navigate('home')">Entrar</button>
+      <button class="btn-full blue" onclick="submitLogin()">Entrar</button>
       <div class="social-divider">ou continue com</div>
-      <button class="btn-full outline" onclick="showToast('Integração Google em breve!')">🇬 Entrar com Google</button>
+      <button class="btn-full outline" onclick="showToast('Integração Google em breve!')">Entrar com Google</button>
     </div>
     <div id="register-form" style="display:none">
-      <div class="form-group" style="margin-bottom:12px;"><label style="font-size:.85rem; font-weight:600; color:var(--gray-700);">Nome Completo</label><input class="form-input" type="text" placeholder="João Silva"></div>
-      <div class="form-group" style="margin-bottom:12px;"><label style="font-size:.85rem; font-weight:600; color:var(--gray-700);">E-mail</label><input class="form-input" type="email" placeholder="seu@email.com"></div>
-      <div class="form-group" style="margin-bottom:12px;"><label style="font-size:.85rem; font-weight:600; color:var(--gray-700);">WhatsApp</label><input class="form-input" type="tel" placeholder="(11) 99999-9999"></div>
+      <div class="form-group" style="margin-bottom:12px;"><label style="font-size:.85rem; font-weight:600; color:var(--gray-700);">Nome Completo</label><input class="form-input" type="text" placeholder="João Silva" id="register-name"></div>
+      <div class="form-group" style="margin-bottom:12px;"><label style="font-size:.85rem; font-weight:600; color:var(--gray-700);">E-mail</label><input class="form-input" type="email" placeholder="seu@email.com" id="register-email"></div>
+      <div class="form-group" style="margin-bottom:12px;"><label style="font-size:.85rem; font-weight:600; color:var(--gray-700);">WhatsApp</label><input class="form-input" type="tel" placeholder="(11) 99999-9999" id="register-phone"></div>
       <div class="form-group" style="margin-bottom:20px;"><label style="font-size:.85rem; font-weight:600; color:var(--gray-700);">Senha</label><input class="form-input" type="password" placeholder="••••••••"></div>
-      <button class="btn-full orange" onclick="showToast('Cadastro realizado! Bem-vindo! 🎉'); navigate('home')">Criar Conta Grátis</button>
+      <button class="btn-full orange" onclick="submitRegister()">Criar Conta Grátis</button>
     </div>
     <p style="text-align:center; margin-top:20px; font-size:.82rem; color:var(--gray-500);">
-      <a onclick="navigate('home')" style="color:var(--blue); cursor:pointer; font-weight:600;">← Voltar às compras</a>
+      <a onclick="navigate('home')" style="color:var(--blue); cursor:pointer; font-weight:600;">Voltar às compras</a>
     </p>
   </div>
 </div>
 
 <!-- ══════════════ FOOTER ══════════════ -->
+<div class="screen" id="screen-profile">
+  <div class="login-box profile-card">
+    <h2>Minha Conta</h2>
+    <p>Confira os dados principais do seu perfil Mid Maker 3D.</p>
+    <div style="margin:24px 0;">
+      <div class="profile-row"><strong>Nome</strong><span id="profile-name">Cliente</span></div>
+      <div class="profile-row"><strong>E-mail</strong><span id="profile-email">-</span></div>
+      <div class="profile-row"><strong>WhatsApp</strong><span id="profile-phone">-</span></div>
+    </div>
+    <button class="btn-full blue" onclick="navigate('catalog')">Ver Produtos</button>
+    <button class="btn-full outline" style="margin-top:10px" onclick="logoutUser()">Sair da Conta</button>
+  </div>
+</div>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="logo-text"><div class="brand">MID MAKER<span>3D</span></div></div>
+        <img class="footer-logo" src="assets/logo-midmaker3d.png" alt="Mid Maker 3D">
         <p>Especialistas em customização e impressão 3D. Transformamos suas ideias em produtos únicos e de alta qualidade.</p>
-        <div class="social-links">
-          <a class="social-btn" href="#" title="Instagram">📸</a>
-          <a class="social-btn" href="https://wa.me/SEUNUMERO" title="WhatsApp">💬</a>
-          <a class="social-btn" href="#" title="TikTok">🎵</a>
-          <a class="social-btn" href="#" title="Facebook">👍</a>
-        </div>
       </div>
       <div class="footer-col">
         <h4>Produtos</h4>
@@ -1147,62 +1194,256 @@ footer { background: var(--gray-900); color: white; padding: 60px 20px 20px; }
       <div class="footer-col">
         <h4>Atendimento</h4>
         <ul>
-          <li><a href="https://wa.me/SEUNUMERO">WhatsApp</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">TikTok</a></li>
-          <li><a href="#">E-mail</a></li>
-          <li><a href="#">Solicitar Orçamento</a></li>
+          <li><a class="js-whatsapp-link" href="#">WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/midmaker3d/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.tiktok.com/@midmaker3d" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a class="js-budget-link" href="#" target="_blank" rel="noopener">Solicitar Orçamento</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Informações</h4>
         <ul>
-          <li><a href="#">Política de Troca</a></li>
-          <li><a href="#">Prazo de Entrega</a></li>
-          <li><a href="#">Formas de Pagamento</a></li>
-          <li><a href="#">Como Funciona</a></li>
-          <li><a onclick="navigate('login')">Minha Conta</a></li>
+          <li><a onclick="openInfoModal('exchange')">Política de Troca</a></li>
+          <li><a onclick="openInfoModal('delivery')">Prazo de Entrega</a></li>
+          <li><a onclick="openInfoModal('payment')">Formas de Pagamento</a></li>
+          <li><a onclick="openAccount()">Minha Conta</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 Mid Maker 3D Customizações — Todos os direitos reservados</p>
+      <p> 2026 Mid Maker 3D Customizações — Todos os direitos reservados</p>
       <div class="footer-badges">
-        <div class="badge">🔒 SSL</div>
-        <div class="badge">✅ Seguro</div>
-        <div class="badge">📦 Garantia</div>
+        <div class="badge">SSL</div>
+        <div class="badge">Seguro</div>
+        <div class="badge">Garantia</div>
       </div>
     </div>
   </div>
 </footer>
 
 <!-- WHATSAPP -->
-<a class="whatsapp-float" href="https://wa.me/SEUNUMERO" target="_blank" title="Falar no WhatsApp">
+<a class="whatsapp-float js-whatsapp-link" href="#" target="_blank" rel="noopener" title="Falar no WhatsApp">
   <span class="whatsapp-tooltip">Fale com a gente!</span>
-  💬
+  <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+    <path d="M16.04 3C9.12 3 3.5 8.51 3.5 15.3c0 2.17.58 4.29 1.69 6.16L3 29l7.75-2.03A12.7 12.7 0 0 0 16.04 28c6.92 0 12.54-5.51 12.54-12.3S22.96 3 16.04 3Zm0 22.87c-1.77 0-3.5-.46-5.02-1.34l-.36-.21-4.6 1.2 1.23-4.38-.24-.38a10.3 10.3 0 0 1-1.43-5.46c0-5.62 4.67-10.19 10.42-10.19s10.42 4.57 10.42 10.19-4.67 10.57-10.42 10.57Zm5.72-7.62c-.31-.15-1.85-.89-2.14-.99-.29-.11-.5-.15-.71.15-.21.3-.82.99-1 .119-.18.2-.37.22-.68.07-.31-.15-1.31-.47-2.5-1.46-.92-.8-1.55-1.79-1.73-2.09-.18-.3-.02-.46.14-.61.14-.14.31-.37.47-.56.16-.19.21-.32.31-.52.1-.2.05-.38-.03-.53-.08-.15-.71-1.67-.97-2.29-.26-.6-.52-.52-.71-.53h-.6c-.21 0-.55.07-.84.38-.29.3-1.1 1.05-1.1 2.56s1.13 2.97 1.29 3.17c.16.2 2.23 3.33 5.4 4.67.75.32 1.34.51 1.8.65.76.24 1.45.21 1.99.13.61-.09 1.85-.74 2.11-1.45.26-.72.26-1.33.18-1.46-.08-.13-.29-.2-.6-.35Z"/>
+  </svg>
 </a>
+
+<div class="info-modal-overlay" id="info-modal" onclick="closeInfoModal(event)">
+  <div class="info-modal">
+    <div class="info-modal-header">
+      <h3 id="info-modal-title">Informações</h3>
+      <button class="info-modal-close" onclick="closeInfoModal()" aria-label="Fechar">×</button>
+    </div>
+    <div class="info-modal-body" id="info-modal-body"></div>
+  </div>
+</div>
 
 <script>
 // ─── DATA ───
 const PRODUCTS = [
-  { id:1, name:'Camisa Personalizada Básica', cat:'camisas', price:59.90, oldPrice:89.90, icon:'👕', tags:['promo','custom'], featured:true },
-  { id:2, name:'Camisa Premium com Estampa 3D', cat:'camisas', price:89.90, oldPrice:119.90, icon:'👕', tags:['hot','custom'], featured:true },
-  { id:3, name:'Camisa Polo Corporativa', cat:'camisas', price:79.90, oldPrice:99.90, icon:'👔', tags:['new','custom'], featured:false },
-  { id:4, name:'Caneca Mágica Personalizada', cat:'canecas', price:49.90, oldPrice:69.90, icon:'☕', tags:['promo','custom'], featured:true },
-  { id:5, name:'Caneca Colorida 300ml', cat:'canecas', price:39.90, oldPrice:55.90, icon:'🍵', tags:['hot','custom'], featured:true },
-  { id:6, name:'Caneca Corporativa com Logo', cat:'canecas', price:55.90, oldPrice:75.90, icon:'☕', tags:['new'], featured:false },
-  { id:7, name:'Peça Decorativa Impressão 3D', cat:'impressao3d', price:89.90, oldPrice:129.90, icon:'🖨️', tags:['new','custom'], featured:false },
-  { id:8, name:'Porta Retrato 3D Personalizado', cat:'impressao3d', price:69.90, oldPrice:99.90, icon:'🖼️', tags:['promo','custom'], featured:true },
-  { id:9, name:'Kit Brinde Empresa 10 peças', cat:'brindes', price:299.90, oldPrice:399.90, icon:'🎁', tags:['hot'], featured:true },
-  { id:10, name:'Camisa Uniforme Empresarial', cat:'empresas', price:69.90, oldPrice:99.90, icon:'👔', tags:['hot','custom'], featured:false },
-  { id:11, name:'Kit Onboarding Empresa', cat:'empresas', price:199.90, oldPrice:259.90, icon:'🏢', tags:['new'], featured:false },
-  { id:12, name:'Caneca Mágica em Kit (6un)', cat:'brindes', price:199.90, oldPrice:299.90, icon:'☕', tags:['promo'], featured:false },
+  { id:1, name:'Camisa Personalizada Básica', cat:'camisas', price:59.90, oldPrice:89.90, tags:['promo','custom'], featured:true },
+  { id:2, name:'Camisa Premium com Estampa 3D', cat:'camisas', price:89.90, oldPrice:119.90, tags:['hot','custom'], featured:true },
+  { id:3, name:'Camisa Polo Corporativa', cat:'camisas', price:79.90, oldPrice:99.90, tags:['new','custom'], featured:false },
+  {
+    id:4,
+    name:'Catálogo de Canecas Namorados',
+    cat:'canecas',
+    price:25.00,
+    pricePrefix:'A partir de',
+    oldPrice:null,
+    image:'Catalogos/Catalogos%20Namorados/Capa%20Dia%20dos%20Namorados.jpg',
+    catalogPdf:'Catalogos/Catalogos%20Namorados/Catalogo%20Namorados%20Novo.pdf',
+    description:'Catálogo especial de canecas para Dia dos Namorados, com modelos românticos e opções para personalização. Escolha o código do produto no PDF e solicite seu pedido pelo WhatsApp.',
+    tags:['new','custom'],
+    featured:true,
+    isCatalog:true
+  },
+  {
+    id:13,
+    name:'Catálogo de Canecas Alfabeto',
+    cat:'canecas',
+    price:25.00,
+    pricePrefix:'A partir de',
+    oldPrice:null,
+    image:'Catalogos/Catalogo%20Alfabeto/Capa%20Alfabeto.jpg',
+    catalogPdf:'Catalogos/Catalogo%20Alfabeto/Catalogo%20Alfabeto.pdf',
+    description:'Catálogo de canecas Alfabeto, com modelos temáticos e opções para personalização. Escolha o código do produto no PDF e solicite seu pedido pelo WhatsApp.',
+    tags:['custom'],
+    featured:false,
+    isCatalog:true
+  },
+  {
+    id:14,
+    name:'Catálogo de Canecas Amizade',
+    cat:'canecas',
+    price:25.00,
+    pricePrefix:'A partir de',
+    oldPrice:null,
+    image:'Catalogos/Catalogo%20Amizade/Capa%20Amizade.jpg',
+    catalogPdf:'Catalogos/Catalogo%20Amizade/Catalogo%20Amizade.pdf',
+    description:'Catálogo de canecas Amizade, com modelos temáticos e opções para personalização. Escolha o código do produto no PDF e solicite seu pedido pelo WhatsApp.',
+    tags:['custom'],
+    featured:false,
+    isCatalog:true
+  },
+  {
+    id:15,
+    name:'Catálogo de Canecas Aniversário',
+    cat:'canecas',
+    price:25.00,
+    pricePrefix:'A partir de',
+    oldPrice:null,
+    image:'Catalogos/Catalogo%20Anivers%C3%A1rio/Capa%20Aniversa%CC%81rio.jpg',
+    catalogPdf:'Catalogos/Catalogo%20Anivers%C3%A1rio/Catalogo%20Aniversa%CC%81rio.pdf',
+    description:'Catálogo de canecas Aniversário, com modelos temáticos e opções para personalização. Escolha o código do produto no PDF e solicite seu pedido pelo WhatsApp.',
+    tags:['custom'],
+    featured:false,
+    isCatalog:true
+  },
+  {
+    id:16,
+    name:'Catálogo de Canecas Avós',
+    cat:'canecas',
+    price:25.00,
+    pricePrefix:'A partir de',
+    oldPrice:null,
+    image:'Catalogos/Catalogo%20Av%C3%B3s/Capa%20Av%C3%B3s.jpg',
+    catalogPdf:'Catalogos/Catalogo%20Av%C3%B3s/Catalogo%20Av%C3%B3s.pdf',
+    description:'Catálogo de canecas Avós, com modelos temáticos e opções para personalização. Escolha o código do produto no PDF e solicite seu pedido pelo WhatsApp.',
+    tags:['custom'],
+    featured:false,
+    isCatalog:true
+  },
+  {
+    id:17,
+    name:'Catálogo de Canecas Café',
+    cat:'canecas',
+    price:25.00,
+    pricePrefix:'A partir de',
+    oldPrice:null,
+    image:'Catalogos/Catalogo%20Caf%C3%A9/Capa%20CAF%C3%89.jpg',
+    catalogPdf:'Catalogos/Catalogo%20Caf%C3%A9/Catalogo%20CAF%C3%89.pdf',
+    description:'Catálogo de canecas Café, com modelos temáticos e opções para personalização. Escolha o código do produto no PDF e solicite seu pedido pelo WhatsApp.',
+    tags:['custom'],
+    featured:false,
+    isCatalog:true
+  },
+  {
+    id:18,
+    name:'Catálogo de Canecas Casamento',
+    cat:'canecas',
+    price:25.00,
+    pricePrefix:'A partir de',
+    oldPrice:null,
+    image:'Catalogos/Catalogo%20Casamento/Capa%20Casamento.jpg',
+    catalogPdf:'Catalogos/Catalogo%20Casamento/Catalogo%20Casamento.pdf',
+    description:'Catálogo de canecas Casamento, com modelos temáticos e opções para personalização. Escolha o código do produto no PDF e solicite seu pedido pelo WhatsApp.',
+    tags:['custom'],
+    featured:false,
+    isCatalog:true
+  },
+  {
+    id:19,
+    name:'Catálogo de Canecas Religião',
+    cat:'canecas',
+    price:25.00,
+    pricePrefix:'A partir de',
+    oldPrice:null,
+    image:'Catalogos/Catalogo%20Religi%C3%A3o/Capa%20%20Relig%C3%A3o.jpg',
+    catalogPdf:'Catalogos/Catalogo%20Religi%C3%A3o/Catalogo%20Relig%C3%A3o.pdf',
+    description:'Catálogo de canecas Religião, com modelos temáticos e opções para personalização. Escolha o código do produto no PDF e solicite seu pedido pelo WhatsApp.',
+    tags:['custom'],
+    featured:false,
+    isCatalog:true
+  },
+  {
+    id:7,
+    name:'Santa Nossa Senhora Aparecida 3D',
+    cat:'impressao3d',
+    price:119.90,
+    oldPrice:149.90,
+    image:'assets/produtos/santa-3d.png',
+    description:'Imagem decorativa de Nossa Senhora Aparecida feita em impressão 3D, com acabamento em preto, azul e detalhes dourados. Uma peça marcante para presentear, decorar ambientes ou montar uma coleção personalizada.',
+    tags:['new','custom'],
+    featured:false
+  },
+  {
+    id:8,
+    name:'Raposa Nove Caudas 3D',
+    cat:'impressao3d',
+    price:189.90,
+    oldPrice:239.90,
+    image:'assets/produtos/raposa-nove-caudas-3d.png',
+    description:'Figura colecionável inspirada na raposa de nove caudas, com presença forte, caudas imponentes e acabamento dourado. Ideal para fãs de anime, decoração gamer e coleções de peças impressas em 3D.',
+    tags:['promo','custom'],
+    featured:true
+  },
+  { id:9, name:'Kit Brinde Empresa 10 peças', cat:'brindes', price:299.90, oldPrice:399.90, tags:['hot'], featured:true },
+  { id:10, name:'Camisa Uniforme Empresarial', cat:'empresas', price:69.90, oldPrice:99.90, tags:['hot','custom'], featured:false },
+  { id:11, name:'Kit Onboarding Empresa', cat:'empresas', price:199.90, oldPrice:259.90, tags:['new'], featured:false },
+  { id:12, name:'Caneca Mágica em Kit (6un)', cat:'brindes', price:199.90, oldPrice:299.90, tags:['promo'], featured:false },
 ];
 
-let cart = [];
-let favorites = [];
+const STORAGE_KEYS = {
+  cart: 'midmaker3d_cart',
+  favorites: 'midmaker3d_favorites',
+  discount: 'midmaker3d_discount',
+  user: 'midmaker3d_user'
+};
+const SHIPPING_FEE = 15.90;
+const FREE_SHIPPING_MIN = 199;
+const WHATSAPP_NUMBER = '557598813937';
+
+let cart = loadStorage(STORAGE_KEYS.cart, []);
+let favorites = loadStorage(STORAGE_KEYS.favorites, []);
 let currentProduct = null;
-let discount = 0;
+let discount = loadStorage(STORAGE_KEYS.discount, 0);
+let currentUser = loadStorage(STORAGE_KEYS.user, null);
+
+function loadStorage(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch(e) {
+    return fallback;
+  }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEYS.cart, JSON.stringify(cart));
+    localStorage.setItem(STORAGE_KEYS.favorites, JSON.stringify(favorites));
+    localStorage.setItem(STORAGE_KEYS.discount, JSON.stringify(discount));
+    localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(currentUser));
+  } catch(e) {}
+}
+
+function money(value) {
+  return 'R$ ' + value.toFixed(2).replace('.', ',');
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[char]));
+}
+
+function getCartTotals() {
+  const subtotal = cart.reduce((sum, item) => {
+    const product = PRODUCTS.find(p => p.id === item.id);
+    return sum + (product ? product.price * item.qty : 0);
+  }, 0);
+  const discountAmt = subtotal * discount;
+  const shipping = subtotal === 0 || subtotal - discountAmt >= FREE_SHIPPING_MIN ? 0 : SHIPPING_FEE;
+  return { subtotal, discountAmt, shipping, total: subtotal - discountAmt + shipping };
+}
+
+function productImage(p, className) {
+  if(!p.image) return '<span class="text">Imagem do produto</span>';
+  const imgClass = p.isCatalog ? `${className} catalog-cover-img` : className;
+  return `<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}" class="${escapeHtml(imgClass)}" loading="lazy">`;
+}
 
 // ─── NAVIGATION ───
 function navigate(screen) {
@@ -1214,6 +1455,7 @@ function navigate(screen) {
   if(screen === 'cart') renderCart();
   if(screen === 'checkout') renderCheckout();
   if(screen === 'favorites') renderFavorites();
+  if(screen === 'profile') renderProfile();
 }
 
 function filterCat(cat) {
@@ -1225,42 +1467,43 @@ function filterCat(cat) {
   // update chips
   document.querySelectorAll('#screen-catalog .cat-chip').forEach(c => {
     c.classList.remove('active');
-    if(c.textContent.toLowerCase().includes(cat) || (cat === 'todos' && c.textContent.includes('Todos'))) c.classList.add('active');
+    if(c.dataset.cat === cat) c.classList.add('active');
   });
 }
-function filterCat2(cat) {
+function filterCat2(cat, el) {
   document.getElementById('cat-filter').value = cat;
   applyFilters();
   document.querySelectorAll('#screen-catalog .cat-chip').forEach(c => c.classList.remove('active'));
-  event.target.classList.add('active');
+  if(el) el.classList.add('active');
 }
 
 // ─── CARD RENDER ───
 function renderCard(p) {
   const isFav = favorites.includes(p.id);
   const discount = p.oldPrice ? Math.round((1 - p.price/p.oldPrice)*100) : 0;
+  const priceText = p.pricePrefix ? `${p.pricePrefix} ${money(p.price)}` : money(p.price);
   const tagsHtml = (p.tags||[]).map(t => {
-    const labels = {promo:'🔥 Promoção', hot:'⭐ Mais Vendido', new:'✨ Novo', custom:'🎨 Custom'};
+    const labels = {promo:'Promoção', hot:'Mais Vendido', new:'Novo', custom:'Custom'};
     const cls = {promo:'tag-promo', hot:'tag-hot', new:'tag-new', custom:'tag-custom'};
-    return `<span class="tag ${cls[t]}">${labels[t]}</span>`;
+    return `<span class="tag ${escapeHtml(cls[t] || '')}">${escapeHtml(labels[t] || t)}</span>`;
   }).join('');
   return `
     <div class="product-card" onclick="openProduct(${p.id})">
       <div class="card-img-wrap">
-        <div class="card-placeholder"><span class="icon">${p.icon}</span><span class="text">${p.name}</span></div>
-        <button class="card-fav ${isFav?'active':''}" onclick="event.stopPropagation(); toggleFav(${p.id}, this)">${isFav?'❤️':'🤍'}</button>
+        <div class="card-placeholder">${productImage(p, 'product-img')}</div>
+        <button class="card-fav ${isFav?'active':''}" onclick="event.stopPropagation(); toggleFav(${p.id}, this)">${isFav?'Favorito':'Favoritar'}</button>
         <div class="card-tags">${tagsHtml}</div>
       </div>
       <div class="card-body">
-        <div class="card-cat">${catLabel(p.cat)}</div>
-        <div class="card-name">${p.name}</div>
+        <div class="card-cat">${escapeHtml(catLabel(p.cat))}</div>
+        <div class="card-name">${escapeHtml(p.name)}</div>
         <div class="card-prices">
-          ${p.oldPrice ? `<span class="price-old">R$ ${p.oldPrice.toFixed(2).replace('.',',')}</span>` : ''}
-          <span class="price-now">R$ ${p.price.toFixed(2).replace('.',',')}</span>
+          ${p.oldPrice ? `<span class="price-old">${money(p.oldPrice)}</span>` : ''}
+          <span class="price-now">${priceText}</span>
           ${discount > 0 ? `<span class="price-discount">-${discount}%</span>` : ''}
         </div>
         <div class="card-actions">
-          <button class="btn-cart" onclick="event.stopPropagation(); addToCart(${p.id})">🛒 Carrinho</button>
+          <button class="btn-cart" onclick="event.stopPropagation(); addToCart(${p.id})">Carrinho</button>
           <button class="btn-buy" onclick="event.stopPropagation(); buyProduct(${p.id})">Comprar</button>
         </div>
       </div>
@@ -1268,7 +1511,7 @@ function renderCard(p) {
 }
 
 function catLabel(cat) {
-  const l = {camisas:'👕 Camisas', canecas:'☕ Canecas', impressao3d:'🖨️ Impressão 3D', empresas:'🏢 Empresas', brindes:'🎁 Brindes'};
+  const l = {camisas:'Camisas', canecas:'Canecas', impressao3d:'Impressão 3D', empresas:'Empresas', brindes:'Brindes'};
   return l[cat] || cat;
 }
 
@@ -1313,12 +1556,25 @@ function openProduct(id) {
   document.getElementById('detail-breadcrumb').textContent = currentProduct.name;
   document.getElementById('detail-cat').textContent = catLabel(currentProduct.cat);
   document.getElementById('detail-name').textContent = currentProduct.name;
-  document.getElementById('detail-img-icon').innerHTML = `<span style="font-size:6rem">${currentProduct.icon}</span>`;
-  document.getElementById('detail-price').textContent = 'R$ ' + currentProduct.price.toFixed(2).replace('.',',');
+  document.getElementById('detail-img-icon').innerHTML = productImage(currentProduct, 'detail-img');
+  document.querySelectorAll('.product-thumbs .thumb').forEach((thumb, index) => {
+    thumb.innerHTML = index === 0 ? productImage(currentProduct, 'thumb-img') : '';
+    thumb.style.display = index === 0 && currentProduct.image ? 'flex' : 'none';
+  });
+  document.getElementById('detail-description').textContent = currentProduct.description || 'Produto personalizado sob demanda.';
+  const catalogLink = document.getElementById('detail-catalog-link');
+  if(currentProduct.catalogPdf) {
+    catalogLink.href = currentProduct.catalogPdf;
+    catalogLink.style.display = 'block';
+  } else {
+    catalogLink.href = '#';
+    catalogLink.style.display = 'none';
+  }
+  document.getElementById('detail-price').textContent = currentProduct.pricePrefix ? `${currentProduct.pricePrefix} ${money(currentProduct.price)}` : money(currentProduct.price);
   if(currentProduct.oldPrice) {
     document.getElementById('detail-old').textContent = 'De R$ ' + currentProduct.oldPrice.toFixed(2).replace('.',',');
     const saving = currentProduct.oldPrice - currentProduct.price;
-    document.getElementById('detail-saving').textContent = `💚 Economize R$ ${saving.toFixed(2).replace('.',',')}`;
+    document.getElementById('detail-saving').textContent = `Economize R$ ${saving.toFixed(2).replace('.',',')}`;
   } else {
     document.getElementById('detail-old').textContent = '';
     document.getElementById('detail-saving').textContent = '';
@@ -1331,13 +1587,14 @@ function openProduct(id) {
 
 function changeQty(delta) {
   const input = document.getElementById('qty-input');
-  const v = Math.max(1, parseInt(input.value) + delta);
+  const current = parseInt(input.value, 10) || 1;
+  const v = Math.max(1, current + delta);
   input.value = v;
 }
 
 function addToCartDetail() {
   if(!currentProduct) return;
-  const qty = parseInt(document.getElementById('qty-input').value);
+  const qty = Math.max(1, parseInt(document.getElementById('qty-input').value, 10) || 1);
   addToCartById(currentProduct.id, qty);
 }
 function buyNow() {
@@ -1359,8 +1616,9 @@ function addToCartById(id, qty = 1) {
   const existing = cart.find(c => c.id === id);
   if(existing) existing.qty += qty;
   else cart.push({ id, qty });
+  saveState();
   updateCartBadge();
-  showToast('🛒 ' + p.name + ' adicionado ao carrinho!');
+  showToast(p.name + ' adicionado ao carrinho!');
 }
 function updateCartBadge() {
   const total = cart.reduce((s, c) => s + c.qty, 0);
@@ -1368,11 +1626,14 @@ function updateCartBadge() {
 }
 function removeFromCart(id) {
   cart = cart.filter(c => c.id !== id);
+  saveState();
   updateCartBadge();
   renderCart();
 }
 function clearCart() {
   cart = [];
+  discount = 0;
+  saveState();
   updateCartBadge();
   renderCart();
 }
@@ -1380,12 +1641,13 @@ function changeCartQty(id, delta) {
   const item = cart.find(c => c.id === id);
   if(!item) return;
   item.qty = Math.max(1, item.qty + delta);
+  saveState();
   renderCart();
 }
 function applyCoupon() {
   const code = document.getElementById('coupon-input').value.toUpperCase().trim();
-  if(code === 'MAKER20') { discount = 0.2; showToast('🎉 Cupom MAKER20 aplicado! 20% de desconto'); renderCart(); }
-  else showToast('❌ Cupom inválido');
+  if(code === 'MAKER20') { discount = 0.2; saveState(); showToast('Cupom MAKER20 aplicado! 20% de desconto'); renderCart(); }
+  else showToast('Cupom inválido');
 }
 function renderCart() {
   if(cart.length === 0) {
@@ -1400,32 +1662,27 @@ function renderCart() {
     const p = PRODUCTS.find(x => x.id === c.id);
     if(!p) return '';
     return `<div class="cart-item">
-      <div class="cart-item-img">${p.icon}</div>
+      <div class="cart-item-img">${productImage(p, 'cart-thumb-img')}</div>
       <div class="cart-item-info">
-        <div class="cart-item-name">${p.name}</div>
-        <div class="cart-item-meta">${catLabel(p.cat)}</div>
-        <div class="cart-item-price">R$ ${(p.price * c.qty).toFixed(2).replace('.',',')}</div>
+        <div class="cart-item-name">${escapeHtml(p.name)}</div>
+        <div class="cart-item-meta">${escapeHtml(catLabel(p.cat))}</div>
+        <div class="cart-item-price">${money(p.price * c.qty)}</div>
         <div class="cart-item-actions" style="margin-top:8px">
           <div class="qty-ctrl">
             <button class="qty-btn" onclick="changeCartQty(${p.id}, -1)">−</button>
             <span class="qty-val" style="display:flex;align-items:center;justify-content:center;">${c.qty}</span>
             <button class="qty-btn" onclick="changeCartQty(${p.id}, 1)">+</button>
           </div>
-          <button style="background:none;border:none;color:#e74c3c;cursor:pointer;font-size:.85rem;" onclick="removeFromCart(${p.id})">🗑 Remover</button>
+          <button style="background:none;border:none;color:#e74c3c;cursor:pointer;font-size:.85rem;" onclick="removeFromCart(${p.id})">Remover</button>
         </div>
       </div>
     </div>`;
   }).join('');
-  const subtotal = cart.reduce((s, c) => {
-    const p = PRODUCTS.find(x => x.id === c.id);
-    return s + (p ? p.price * c.qty : 0);
-  }, 0);
-  const discountAmt = subtotal * discount;
-  const total = subtotal - discountAmt;
-  document.getElementById('sum-subtotal').textContent = 'R$ ' + subtotal.toFixed(2).replace('.',',');
-  document.getElementById('sum-discount').textContent = '- R$ ' + discountAmt.toFixed(2).replace('.',',');
-  document.getElementById('sum-shipping').textContent = total >= 199 ? '🎉 Grátis' : 'R$ 15,90';
-  document.getElementById('sum-total').textContent = 'R$ ' + total.toFixed(2).replace('.',',');
+  const totals = getCartTotals();
+  document.getElementById('sum-subtotal').textContent = money(totals.subtotal);
+  document.getElementById('sum-discount').textContent = '- ' + money(totals.discountAmt);
+  document.getElementById('sum-shipping').textContent = totals.shipping === 0 ? 'Grátis' : money(totals.shipping);
+  document.getElementById('sum-total').textContent = money(totals.total);
 }
 function renderCheckout() {
   const list = document.getElementById('checkout-items-list');
@@ -1433,26 +1690,27 @@ function renderCheckout() {
     const p = PRODUCTS.find(x => x.id === c.id);
     if(!p) return '';
     return `<div class="order-item-mini">
-      <div class="order-img-mini">${p.icon}</div>
+      <div class="order-img-mini">${productImage(p, 'order-thumb-img')}</div>
       <div class="order-info-mini">
-        <div class="order-name-mini">${p.name}</div>
+        <div class="order-name-mini">${escapeHtml(p.name)}</div>
         <div class="order-qty-mini">Qtd: ${c.qty}</div>
       </div>
-      <div class="order-price-mini">R$ ${(p.price*c.qty).toFixed(2).replace('.',',')}</div>
+      <div class="order-price-mini">${money(p.price*c.qty)}</div>
     </div>`;
   }).join('') || '<p style="color:var(--gray-500);font-size:.85rem">Nenhum item</p>';
-  const subtotal = cart.reduce((s, c) => { const p = PRODUCTS.find(x => x.id === c.id); return s + (p?p.price*c.qty:0); }, 0);
-  const discAmt = subtotal * discount;
-  document.getElementById('co-subtotal').textContent = 'R$ ' + subtotal.toFixed(2).replace('.',',');
-  document.getElementById('co-discount').textContent = '- R$ ' + discAmt.toFixed(2).replace('.',',');
-  document.getElementById('co-total').textContent = 'R$ ' + (subtotal - discAmt).toFixed(2).replace('.',',');
+  const totals = getCartTotals();
+  document.getElementById('co-subtotal').textContent = money(totals.subtotal);
+  document.getElementById('co-discount').textContent = '- ' + money(totals.discountAmt);
+  document.getElementById('co-shipping').textContent = totals.shipping === 0 ? 'Grátis' : money(totals.shipping);
+  document.getElementById('co-total').textContent = money(totals.total);
 }
 function finishOrder() {
-  if(cart.length === 0) { showToast('❌ Seu carrinho está vazio!'); return; }
+  if(cart.length === 0) { showToast('Seu carrinho está vazio!'); return; }
   cart = [];
   discount = 0;
+  saveState();
   updateCartBadge();
-  showToast('🎉 Pedido realizado com sucesso! Você receberá uma confirmação.');
+  showToast('Pedido realizado com sucesso! Você receberá uma confirmação.');
   setTimeout(() => navigate('home'), 1200);
 }
 
@@ -1460,24 +1718,28 @@ function finishOrder() {
 function toggleFav(id, btn) {
   if(favorites.includes(id)) {
     favorites = favorites.filter(f => f !== id);
-    btn.textContent = '🤍';
+    btn.textContent = 'Favoritar';
     btn.classList.remove('active');
+    saveState();
     showToast('Removido dos favoritos');
   } else {
     favorites.push(id);
-    btn.textContent = '❤️';
+    btn.textContent = 'Favorito';
     btn.classList.add('active');
-    showToast('❤️ Adicionado aos favoritos!');
+    saveState();
+    showToast('Adicionado aos favoritos!');
   }
 }
 function toggleFavDetail() {
   if(!currentProduct) return;
   if(favorites.includes(currentProduct.id)) {
     favorites = favorites.filter(f => f !== currentProduct.id);
+    saveState();
     showToast('Removido dos favoritos');
   } else {
     favorites.push(currentProduct.id);
-    showToast('❤️ Adicionado aos favoritos!');
+    saveState();
+    showToast('Adicionado aos favoritos!');
   }
 }
 function renderFavorites() {
@@ -1500,6 +1762,51 @@ function switchLoginTab(tab, el) {
 }
 
 // ─── TOAST ───
+function submitRegister() {
+  const name = document.getElementById('register-name').value.trim();
+  const email = document.getElementById('register-email').value.trim();
+  const phone = document.getElementById('register-phone').value.trim();
+  if(!name || !email) {
+    showToast('Informe nome e e-mail para criar sua conta.');
+    return;
+  }
+  currentUser = { name, email, phone };
+  saveState();
+  showToast('Cadastro realizado! Bem-vindo!');
+  navigate('profile');
+}
+
+function submitLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  if(!currentUser) {
+    currentUser = { name: 'Cliente Mid Maker 3D', email: email || 'cliente@midmaker3d.com', phone: '' };
+  } else if(email) {
+    currentUser.email = email;
+  }
+  saveState();
+  showToast('Login realizado com sucesso!');
+  navigate('profile');
+}
+
+function renderProfile() {
+  const user = currentUser || { name: 'Cliente', email: '-', phone: '-' };
+  document.getElementById('profile-name').textContent = user.name || 'Cliente';
+  document.getElementById('profile-email').textContent = user.email || '-';
+  document.getElementById('profile-phone').textContent = user.phone || '-';
+}
+
+function openAccount() {
+  if(currentUser) navigate('profile');
+  else navigate('login');
+}
+
+function logoutUser() {
+  currentUser = null;
+  saveState();
+  showToast('Você saiu da conta.');
+  navigate('login');
+}
+
 let toastTimeout;
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -1510,11 +1817,98 @@ function showToast(msg) {
 }
 
 // ─── POPUP ───
+const INFO_CONTENT = {
+  exchange: {
+    title: 'Política de Troca',
+    body: `
+      <h4>Condições gerais</h4>
+      <p>A troca pode ser solicitada quando houver defeito de fabricação, erro no produto enviado ou divergência em relação ao pedido confirmado. O contato deve ser feito pelo atendimento da Mid Maker 3D com fotos do produto, número do pedido e uma breve descrição do ocorrido.</p>
+      <h4>Produtos personalizados</h4>
+      <p>Como muitos itens são feitos sob encomenda, produtos personalizados com nome, arte, cor, tamanho ou detalhes escolhidos pelo cliente não podem ser trocados por arrependimento após aprovação e produção. Antes de finalizar, revise cuidadosamente as informações enviadas.</p>
+      <h4>Prazo para solicitar</h4>
+      <p>Solicitações por defeito ou divergência devem ser feitas em até 7 dias corridos após o recebimento. Após análise, poderemos oferecer reparo, substituição, crédito para nova compra ou reembolso, conforme o caso.</p>
+      <h4>Estado do produto</h4>
+      <ul>
+        <li>O item deve estar sem sinais de uso indevido.</li>
+        <li>Deve ser preservado com embalagem, acessórios e comprovantes quando houver.</li>
+        <li>Danos causados por queda, mau uso, lavagem incorreta ou armazenamento inadequado não são cobertos.</li>
+      </ul>
+      <h4>Atendimento</h4>
+      <p>Cada caso será avaliado com cuidado para garantir uma solução justa e transparente para o cliente.</p>
+    `
+  },
+  delivery: {
+    title: 'Prazo de Entrega',
+    body: `
+      <h4>Como calculamos o prazo</h4>
+      <p>O prazo de entrega pode variar de acordo com a cidade, região, distância, disponibilidade do produto e complexidade da personalização. Por isso, o prazo final é confirmado após entendermos o endereço de entrega e os detalhes do pedido.</p>
+      <h4>Produção sob demanda</h4>
+      <p>Produtos personalizados e impressos em 3D podem precisar de tempo de produção antes do envio. Esse período depende do tipo de peça, quantidade, acabamento e fila de produção.</p>
+      <h4>Regiões atendidas</h4>
+      <p>Atendemos entregas conforme viabilidade logística da região. Em algumas localidades, o envio poderá ser feito por transportadora, Correios, motoboy ou retirada combinada.</p>
+      <h4>Confirmação pelo atendimento</h4>
+      <p>Para informar um prazo mais preciso, nossa equipe poderá solicitar cidade, bairro, CEP e quantidade de produtos. Assim conseguimos passar uma previsão realista antes da conclusão do pedido.</p>
+    `
+  },
+  payment: {
+    title: 'Formas de Pagamento',
+    body: `
+      <h4>Opções aceitas</h4>
+      <p>A Mid Maker 3D trabalha com formas de pagamento práticas e seguras para facilitar sua compra.</p>
+      <ul>
+        <li>Cartões de crédito e débito das principais bandeiras, como Visa, Mastercard, Elo, American Express e Hipercard.</li>
+        <li>PIX para pagamentos rápidos e confirmação ágil.</li>
+        <li>Boleto bancário, quando disponível para o tipo de pedido.</li>
+      </ul>
+      <h4>Pedidos personalizados</h4>
+      <p>Em produtos sob encomenda, a produção pode ser iniciada após confirmação do pagamento ou conforme combinado no atendimento.</p>
+      <h4>Segurança</h4>
+      <p>Dados de pagamento devem ser informados apenas em canais oficiais ou meios seguros indicados pela equipe Mid Maker 3D.</p>
+    `
+  }
+};
+
+function openInfoModal(type) {
+  const content = INFO_CONTENT[type];
+  if(!content) return;
+  document.getElementById('info-modal-title').textContent = content.title;
+  document.getElementById('info-modal-body').innerHTML = content.body;
+  document.getElementById('info-modal').classList.add('active');
+}
+
+function closeInfoModal(event) {
+  if(event && event.target.id !== 'info-modal') return;
+  document.getElementById('info-modal').classList.remove('active');
+}
+
 function closePopup() {
   document.getElementById('popup').style.display = 'none';
 }
 
+function setupWhatsAppLinks() {
+  const links = document.querySelectorAll('.js-whatsapp-link');
+  const href = WHATSAPP_NUMBER ? `https://wa.me/${WHATSAPP_NUMBER}` : '#';
+  const budgetHref = WHATSAPP_NUMBER ? `${href}?text=${encodeURIComponent('Olá, gostaria de realizar um orçamento')}` : '#';
+  links.forEach(link => {
+    link.href = href;
+    if(!WHATSAPP_NUMBER) {
+      link.removeAttribute('target');
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        showToast('Configure o número do WhatsApp no arquivo antes de publicar.');
+      });
+    }
+  });
+  document.querySelectorAll('.js-budget-link').forEach(link => {
+    link.href = budgetHref;
+    if(!WHATSAPP_NUMBER) {
+      link.removeAttribute('target');
+    }
+  });
+}
+
 // ─── INIT ───
+setupWhatsAppLinks();
 renderPromos();
 renderFeatured();
 updateCartBadge();
